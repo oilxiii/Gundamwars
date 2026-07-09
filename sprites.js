@@ -53,10 +53,36 @@ const Sprites = (() => {
       V: unit.visor || '#43ff93'
     };
 
-    if(isWhiteType){
+    if(unit.kind === 'ball' || unit.horn === 'ball'){
+      drawBallType();
+    } else if(isWhiteType){
       drawGundamType();
     } else {
       drawMonoEyeType();
+    }
+
+    function drawBallType(){
+      // RB-79 Ball / Space Coffin: round pod, tiny cockpit, single manipulator, cannon.
+      // Keep it very readable at 32x32: one big sphere with a top cannon.
+      rect(14,3,4,3,'O'); rect(15,1,2,4,'D'); rect(13,2,6,1,'O');
+      rect(12,6,8,2,'O'); rect(10,8,12,2,'O'); rect(8,10,16,3,'O');
+      rect(6,13,20,8,'O'); rect(8,21,16,4,'O'); rect(11,25,10,2,'O');
+      // Round hull fill.
+      rect(11,8,10,1,'W'); rect(9,10,14,3,'W'); rect(7,13,18,8,'W'); rect(9,21,14,3,'W'); rect(12,25,8,1,'W');
+      rect(8,14,4,6,'L'); rect(20,14,4,6,'G'); rect(10,22,11,1,'L');
+      // Tiny cockpit window.
+      rect(13,12,6,4,'O'); rect(14,13,4,2,'C'); px(18,13,'V');
+      // Danger red maintenance stripe.
+      rect(9,18,14,1,'R');
+      // Manipulator arms.
+      rect(3,16,5,2,'O'); rect(2,17,2,3,'D'); rect(24,16,5,2,'O'); rect(28,17,2,3,'D');
+      rect(1,20,4,2,'O'); rect(27,20,4,2,'O');
+      // Thrusters.
+      rect(11,27,3,3,'O'); rect(18,27,3,3,'O'); rect(12,28,1,2,'B'); rect(19,28,1,2,'B');
+      // Make high quality Ball Kai stand out if primary is bright/gold-ish.
+      if(unit.name && unit.name.includes('Kai')){
+        rect(7,11,3,2,'Y'); rect(22,11,3,2,'Y'); rect(14,16,4,1,'V');
+      }
     }
 
     function drawGundamType(){
